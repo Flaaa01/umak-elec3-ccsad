@@ -146,7 +146,7 @@ Route table of the private subnet:
 
 Tool used (Excalidraw, draw.io, Lucidchart, or paper):
 
-vpc-diagram.png
+Excalidraw
 
 Save your diagram as `vpc-diagram.png` in your folder. The image line below shows it.
 
