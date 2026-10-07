@@ -124,8 +124,8 @@ Resources that are associated with the same default security group can send inbo
 
 ### B1. Plan two subnets
 
-- Public subnet CIDR: <answer>
-- Private subnet CIDR: <answer>
+- Public subnet CIDR: `10.125.0.0/24`
+- Private subnet CIDR: `10.125.1.0/24`
 
 ### B2. Route tables
 
@@ -133,20 +133,20 @@ Route table of the public subnet:
 
 | Destination | Target |
 | --- | --- |
-| <answer> | <answer> |
-| <answer> | <answer> |
+| `10.125.0.0/16` | `local` |
+| `0.0.0.0/0` | `internet gateway` |
 
 Route table of the private subnet:
 
 | Destination | Target |
 | --- | --- |
-| <answer> | <answer> |
+| `10.125.0.0/16` | `local` |
 
 ### B3. My VPC diagram
 
 Tool used (Excalidraw, draw.io, Lucidchart, or paper):
 
-<answer>
+vpc-diagram.png
 
 Save your diagram as `vpc-diagram.png` in your folder. The image line below shows it.
 
@@ -156,20 +156,20 @@ Save your diagram as `vpc-diagram.png` in your folder. The image line below show
 
 Can you still open the web page from your laptop? Why?
 
-<answer>
+No. The instance would no longer have a route from the VPC to the internet because the `0.0.0.0/0` route was removed. Having a public IPv4 address alone is not enough; the route to the Internet Gateway is also needed.
 
 Can the instance still reach another instance in the VPC? Why?
 
-<answer>
+Yes, because the local route still connects the instances inside the same VPC.
 
 ### B5. Place a database
 
 Which subnet gets the database? Why?
 
-<answer>
+I would put the database in the private subnet, `10.125.1.0/24`. The private subnet does not have a direct route to the Internet Gateway, which reduces direct exposure of the database to the internet.
 
 ### B6. My question about VPCs
 
 What is your question, and what made you think of it?
 
-<answer>
+Can a private subnet access the internet without giving the resources in the subnet public IP addresses? I thought of this because a private subnet needs a way to download updates, but its resources should not be directly reachable from the internet.
