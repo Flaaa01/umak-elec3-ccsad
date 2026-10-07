@@ -46,22 +46,22 @@ Screenshot 1. Save it as `screenshot-1-subnets.png` in your folder. The image li
 
 Available IPv4 addresses in each subnet:
 
-<answer>
+'apse1-az2(ap-southeast-1a)' 4090 'apse1-az1(ap-southeast-1b)' 4091 'apse1-az3(ap-southeast-1c)' 4091
 
 Why is the number lower than 4,096?
 
-<answer>
+A '/20' subnet has 4,096 IPv4 addresses, but AWS reserves 5 addresses in every subnet for networking purposes. Therefore, an empty subnet normally has 4,091 available addresses.
 
 What uses the missing address in the subnet with the lowest number?
 
-<answer>
+The ap-southeast-1a subnet has 4,090 available addresses, which is one fewer than the normal 4,091. This means one additional IPv4 address is currently being used by a network interface/resource in that subnet.
 
 ### A4. The route table
 
 | Destination | Target |
 | --- | --- |
-| <answer> | <answer> |
-| <answer> | <answer> |
+| 172.31.0.0/16 | local |
+| 0.0.0.0./0 | igw-... |
 
 Screenshot 2. Save it as `screenshot-2-routes.png` in your folder. The image line below shows it.
 
@@ -71,38 +71,38 @@ Screenshot 2. Save it as `screenshot-2-routes.png` in your folder. The image lin
 
 Are the default subnets public or private? Which route proves it?
 
-<answer>
+The default subnets are public. The route `0.0.0.0/0` to the Internet Gateway (`igw-...`) provides a path from the subnet to the internet.
 
 ### A6. The internet gateway
 
 State of the internet gateway:
 
-<answer>
+Attached
 
 What happens to the default subnets if the gateway is detached?
 
-<answer>
+If the Internet Gateway is detached, the default subnets lose their path to the internet because the `0.0.0.0/0` route can no longer reach the Internet Gateway. However, communication between resources inside the VPC can still work through the local route.
 
 ### A7. NAT gateways
 
 Number of NAT gateways:
 
-<answer>
+0
 
 Can a server in a new private subnet download updates? Why?
 
-<answer>
+No. There are no NAT gateways in the VPC, so a server in a private subnet would not have a NAT gateway to provide outbound internet access. It would need a NAT gateway and a route such as `0.0.0.0/0` pointing to that NAT gateway.
 
 ### A8. The network ACL
 
 | Rule number | Source | Allow or Deny |
 | --- | --- | --- |
-| <answer> | <answer> | <answer> |
-| <answer> | <answer> | <answer> |
+| 100 | 0.0.0.0/0 | Allow |
+| * | 0.0.0.0/0 | Deny |
 
 How is a network ACL different from a security group?
 
-<answer>
+A network ACL controls traffic for an entire subnet, while a security group controls traffic for individual resources such as EC2 instances. A network ACL is stateless, so inbound and outbound traffic are evaluated separately, while a security group is stateful. A network ACL can also explicitly deny traffic.
 
 Screenshot 3. Save it as `screenshot-3-network-acl.png` in your folder. The image line below shows it.
 
@@ -112,11 +112,11 @@ Screenshot 3. Save it as `screenshot-3-network-acl.png` in your folder. The imag
 
 Inbound rule (type and source):
 
-<answer>
+All traffic source: sg-...
 
 Which resources can send traffic to an instance that uses it?
 
-<answer>
+Resources that are associated with the same default security group can send inbound traffic to the instance. Resources that are not using that security group are not allowed by this inbound rule.
 
 ---
 
